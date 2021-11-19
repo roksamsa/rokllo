@@ -1,0 +1,7 @@
+<div class="boards">
+    <app-board class="boards__item" *ngFor="let board of myBoards; index as i" boardTitle="{{board.name}}" boardBackgroundColor="{{board.prefs.backgroundColor}}" boardBackgroundImage="{{board.prefs.backgroundImage}}" routerLink="/board/{{board.id}}">
+        <div class="test" *ngFor="let boardBgImage of board.prefs.backgroundImageScaled; index as i">
+            <img *ngIf="i === 2" src="{{boardBgImage.url}}"/>
+        </div>
+    </app-board>
+</div>

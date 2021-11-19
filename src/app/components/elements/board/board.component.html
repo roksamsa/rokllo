@@ -1,0 +1,11 @@
+<div class="board" [ngStyle]="{'background-color': boardBackgroundColor}">
+    <div class="board__bg-image">
+        <ng-content></ng-content>
+    </div>
+    <div class="board__over">
+        <div class="board__title">
+            {{boardTitle}}
+        </div>
+        <div class="board__favorite" [ngClass]="{'board__favorite--on': boardFavorite}"></div>
+    </div>
+</div>
