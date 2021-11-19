@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 
 import { TrelloService } from './services/trello.service';
 import { BoardComponent } from './components/elements/board/board.component';
@@ -16,7 +15,7 @@ const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardPageComponent },
     { path: 'board/:id', component: BoardPageComponent },
-  ];
+];
 
 @NgModule({
     declarations: [
@@ -27,16 +26,14 @@ const routes: Routes = [
         LoginComponent
     ],
     imports: [
-        RouterModule.forRoot(routes),
         BrowserModule,
-        HttpClientModule
+        RouterModule.forRoot(routes),
+        HttpClientModule,
     ],
     exports: [
-        CommonModule,
         RouterModule
     ],
     providers: [
-        CommonModule,
         TrelloService
     ],
     bootstrap: [AppComponent]

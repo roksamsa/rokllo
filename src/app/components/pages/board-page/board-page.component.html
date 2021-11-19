@@ -1,7 +1,8 @@
-<div class="test">
-    <img src="{{listsInBoard.prefs.backgroundImage}}" />
+<div class="board-page"
+[style.background-color]="listsInBoard.prefs.backgroundColor"
+[style.background-image]="'url(' + listsInBoard.prefs.backgroundImage + ')'">
+    <div class="board-page__content" *ngFor="let board of listsInBoard; index as i">
+        {{board.lists}}
+    </div>
 </div>
-<p>board works!</p>
-<div class="" *ngFor="let board of listsInBoard; index as i">
-    {{board.lists}}
-</div>
+<!-- [ngStyle]="{'background-image': 'url(' + listsInBoard.prefs.backgroundImage + ')'}"  -->
