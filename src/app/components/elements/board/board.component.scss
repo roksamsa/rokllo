@@ -17,10 +17,17 @@
     box-sizing: border-box;
     overflow: hidden;
     cursor: pointer;
+    transition: filter 150ms ease-in-out;
 
     &:hover {
+        filter: brightness(0.85);
+
         .board__bg-image {
             inset: -20px;
+        }
+
+        .board__favorite {
+            transform: translateX(0);
         }
     }
 
@@ -33,9 +40,43 @@
 
     &__over {
         position: relative;
+        height: 100%;
     }
 
     &__title {
         color: #ffffff;
+    }
+
+    &__favorite {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        right: 0;
+        bottom: 0;
+        transform: translateX(50px);
+        transition: transform 150ms ease-in-out;
+        color: #ffffff;
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-size: 22px;
+            transform-origin: center;
+            transition: font-size 150ms ease-in-out;
+        }
+
+        &:hover {
+            transform: translateX(0) scale(0.7);
+
+            span {
+                font-size: 18px;
+            }
+        }
     }
 }
