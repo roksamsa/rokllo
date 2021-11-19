@@ -28,6 +28,7 @@
 
         .board__favorite {
             transform: translateX(0);
+            opacity: 1;
         }
     }
 
@@ -45,6 +46,7 @@
 
     &__title {
         color: #ffffff;
+        font-weight: 600;
     }
 
     &__favorite {
@@ -57,7 +59,8 @@
         right: 0;
         bottom: 0;
         transform: translateX(50px);
-        transition: transform 150ms ease-in-out;
+        opacity: 0;
+        transition: transform 150ms ease-in-out, opacity 150ms ease-in-out;
         color: #ffffff;
 
         span {
