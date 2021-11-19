@@ -17,12 +17,10 @@
     box-sizing: border-box;
     overflow: hidden;
     cursor: pointer;
-    transition: filter 150ms ease-in-out;
 
     &:hover {
-        filter: brightness(0.85);
-
         .board__bg-image {
+            filter: brightness(0.85);
             inset: -20px;
         }
 
@@ -36,7 +34,7 @@
         position: absolute;
         inset: 0;
         object-fit: cover;
-        transition: inset 2000ms ease-in-out;
+        transition: inset 2000ms ease-in-out, filter 250ms ease-in-out;
     }
 
     &__over {
