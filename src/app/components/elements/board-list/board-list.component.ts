@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-board-list',
-  templateUrl: './board-list.component.html',
-  styleUrls: ['./board-list.component.scss']
+    selector: 'app-board-list',
+    templateUrl: './board-list.component.html',
+    styleUrls: ['./board-list.component.scss']
 })
 export class BoardListComponent implements OnInit {
+    @Input() boardListTitle: string = "";
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

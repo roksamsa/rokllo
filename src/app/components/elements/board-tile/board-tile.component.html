@@ -1,0 +1,16 @@
+<div class="board">
+    <div class="board__bg-image" [ngStyle]="{'background-color': boardBackgroundColor}">
+        <ng-content></ng-content>
+    </div>
+    <div class="board__over">
+        <div class="board__title">
+            {{boardTitle}}
+        </div>
+        <div class="board__link" (click)="redirectToDetails()"></div>
+        <div class="board__favorite" [ngClass]="{'board__favorite--on': boardFavoriteBool, 'board__favorite--clicked': favoriteIconClicked}" (click)="boardFavoriteToggle()">
+            <span class="material-icons" *ngIf="!boardFavoriteBool">star_outline</span>
+            <span class="material-icons" *ngIf="boardFavoriteBool">grade</span>
+            <span class="board__favorite-animated material-icons">grade</span>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { TrelloService } from './services/trello.service';
-import { BoardComponent } from './components/elements/board/board.component';
+import { BoardTileComponent } from './components/elements/board-tile/board-tile.component';
 import { BoardListComponent } from './components/elements/board-list/board-list.component';
 import { DashboardPageComponent } from './components/pages/dashboard-page/dashboard-page.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { BoardPageComponent } from './components/pages/board-page/board-page.component';
-import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -20,17 +21,21 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        BoardComponent,
+        BoardTileComponent,
         BoardListComponent,
+        BoardPageComponent,
         DashboardPageComponent,
         LoginComponent
     ],
     imports: [
+        CommonModule,
         BrowserModule,
         RouterModule.forRoot(routes),
         HttpClientModule,
     ],
     exports: [
+        CommonModule,
+        BrowserModule,
         RouterModule
     ],
     providers: [

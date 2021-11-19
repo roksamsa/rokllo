@@ -6,7 +6,22 @@
 .board-page {
     display: flex;
     height: 100%;
-    width: 100%;
     background-position: center;
     background-size: cover;
+    box-sizing: border-box;
+
+    &__image {
+        position: fixed;
+        inset: 0;
+    }
+
+    &__content {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        padding: 0 0 15px 15px;
+        box-sizing: border-box;
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
 }

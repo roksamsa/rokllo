@@ -9,7 +9,7 @@ import { TrelloService } from "../../../services/trello.service";
 })
 export class DashboardPageComponent implements OnInit {
     title = 'Rokllo';
-    myBoards: any = {};
+    myBoards: any = [];
 
     constructor(
         private trelloService: TrelloService

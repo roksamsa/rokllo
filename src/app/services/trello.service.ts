@@ -27,6 +27,11 @@ export class TrelloService {
         return this.http.get<[]>(this.urlBaseLists + boardId + this.trelloAuth);
     }
 
+    // Get lists from specific board with ID from database
+    getAllListsFromBoardWithId(boardId: string): Observable<[]> {
+        return this.http.get<[]>(this.urlBaseLists + boardId + '/lists' + this.trelloAuth);
+    }
+
     /*
     // Get specific coin by short name
     getCoinByShortName(coinShortName: string): Observable<Coin> {
