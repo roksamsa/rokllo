@@ -1,6 +1,15 @@
-<div class="board-page" [style.background-color]="boardData.prefs.backgroundColor">
-    <div class="board-page__image" [style.background-image]="'url(' + boardData.prefs.backgroundImage + ')'"></div>
+<div class="board-page">
+    <div class="board-page__image" [style.background-color]="boardData.prefs.backgroundColor" [style.background-image]="'url(' + boardData.prefs.backgroundImage + ')'"></div>
     <div class="board-page__content">
-        <app-board-list *ngFor="let list of listsInBoard" boardListTitle="{{list.name}}"></app-board-list>
+        <div class="board-page__list" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+            <app-board-list class="board-page__list-item" *ngFor="let list of listsInBoard" boardListId="{{list.id}}" cdkDrag>
+                <div class="board-page__list-title" list-title cdkDragHandle>{{list.name}}</div>
+                <div class="board-page__list-placeholder" *cdkDragPlaceholder></div>
+            </app-board-list>
+        </div>
+        <div class="board-page__add-new">
+            <span class="board-page__add-new-icon material-icons">add</span>
+            <span class="board-page__add-new-text">Add another list</span>
+        </div>
     </div>
 </div>

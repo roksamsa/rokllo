@@ -1,0 +1,43 @@
+@mixin text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin board-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+    min-height: 20px;
+    position: relative;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+@mixin button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 5px 10px;
+    min-height: 20px;
+    position: relative;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+@mixin button--primary {
+    @include button;
+    background-color: $color__blue--primary;
+    color: #fff;
+
+    &:hover {
+        background-color: $color__blue--dark;
+    }
+}

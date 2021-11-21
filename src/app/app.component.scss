@@ -1,19 +1,24 @@
+
+@import "sass/global_variables";
 :host,
 .rokllo {
     display: block;
     height: 100%;
+    color: $color__white--20;
 }
 
 .rokllo {
-    &__background {
+    background-color: #e3e3e3;
+
+    /*&__background {
         position: absolute;
         inset: 0;
-        background: #FC5C7D;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #6A82FB, #FC5C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #FC5C7D;
+        background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
+        background: linear-gradient(to right, #6A82FB, #FC5C7D);
         opacity: 0.1;
         filter: blur(50px);
-    }
+    }*/
 
     &__wrapper {
         display: block;

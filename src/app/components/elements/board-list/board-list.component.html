@@ -1,3 +1,40 @@
 <div class="board-list">
-    <div class="board-list__title">{{boardListTitle}}</div>
+    <div class="board-list__header">
+        <div class="board-list__title">
+            <ng-content select="[list-title]"></ng-content>
+        </div>
+        <div class="board-list__options">
+            <span class="board-list__options-icon material-icons">more_vert</span>
+        </div>
+    </div>
+    <div class="board-list__items">
+        <div class="board-list__cards">
+            <div class="board-list__card" cdkDropList (cdkDropListDropped)="drop($event)">
+                <app-list-card class="board-list__card" *ngFor="let card of cardsOnList" cdkDrag>
+                    <div class="board-list__placeholder" *cdkDragPlaceholder></div>
+                    {{card.name}}
+                </app-list-card>
+            </div>
+        </div>
+        <ng-content></ng-content>
+    </div>
+    <div class="board-list__footer">
+        <div class="board-list__add-new-input" *ngIf="isAddNewCardAreaVisible">
+            <div class="board-list__add-new-textarea">
+                <textarea rows="4" cols="50"></textarea>
+            </div>
+            <div class="board-list__add-new-action">
+                <div class="board-list__add-new-button" (click)="addNewCardToList(boardListId, 'testroks27')">
+                    <span>Add card</span>
+                </div>
+                <div class="board-list__add-new-cancel" (click)="toggleAddNewCardArea()">
+                    <span class="board-list__options-icon material-icons">close</span>
+                </div>
+            </div>
+        </div>
+        <div class="board-list__add-new" (click)="toggleAddNewCardArea()" *ngIf="!isAddNewCardAreaVisible">
+            <span class="board-list__add-new-icon material-icons">add</span>
+            <span>Add new list-card</span>
+        </div>
+    </div>
 </div>

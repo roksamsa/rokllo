@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { TrelloService } from './services/trello.service';
 import { BoardTileComponent } from './components/elements/board-tile/board-tile.component';
@@ -11,6 +12,9 @@ import { BoardListComponent } from './components/elements/board-list/board-list.
 import { DashboardPageComponent } from './components/pages/dashboard-page/dashboard-page.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { BoardPageComponent } from './components/pages/board-page/board-page.component';
+import { HeaderComponent } from './components/elements/header/header.component';
+import { ProfileMenuComponent } from './components/elements/profile-menu/profile-menu.component';
+import { ListCardComponent } from './components/elements/list-card/list-card.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -25,21 +29,25 @@ const routes: Routes = [
         BoardListComponent,
         BoardPageComponent,
         DashboardPageComponent,
-        LoginComponent
+        LoginComponent,
+        HeaderComponent,
+        ProfileMenuComponent,
+        ListCardComponent,
     ],
     imports: [
         CommonModule,
         BrowserModule,
         RouterModule.forRoot(routes),
         HttpClientModule,
+        DragDropModule,
     ],
     exports: [
         CommonModule,
         BrowserModule,
-        RouterModule
+        RouterModule,
     ],
     providers: [
-        TrelloService
+        TrelloService,
     ],
     bootstrap: [AppComponent]
 })

@@ -22,15 +22,18 @@
   height: 100%;
   padding: 15px;
   border-radius: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   background-color: white;
   background-position: center;
   background-size: cover;
   box-sizing: border-box;
   overflow: hidden;
   cursor: pointer;
+  transition: box-shadow 150ms ease-in-out;
 
   &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
     .board__bg-image {
       filter: brightness(0.85);
       inset: -20px;

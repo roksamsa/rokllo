@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,13 +9,19 @@ import { Observable } from 'rxjs';
 export class TrelloService {
     trelloKey = "d3dd95bb2c59a7d97c006a96f3b72d8f";
     trelloToken = "be77b0c76709dd83671aaa163fae71b3653d8fda574996a520b810379d09524e";
-    trelloAuth = "?key=" + this.trelloKey + "&token=" + this.trelloToken;
+    trelloAuth = "&key=" + this.trelloKey + "&token=" + this.trelloToken;
     urlBase = 'https://api.trello.com/1/members/me';
     urlBaseLists = 'https://api.trello.com/1/boards/';
+    urlLists = 'https://api.trello.com/1/lists/';
+    urlCards = 'http://localhost:8010/proxy/1/cards';
     urlBoards = this.urlBase + '/boards';
 
     constructor(
         private http: HttpClient) { }
+
+    private headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+    });
 
     // Get all boards from database
     getAllBoards(): Observable<[]> {
@@ -32,17 +38,42 @@ export class TrelloService {
         return this.http.get<[]>(this.urlBaseLists + boardId + '/lists' + this.trelloAuth);
     }
 
-    /*
-    // Get specific coin by short name
-    getCoinByShortName(coinShortName: string): Observable<Coin> {
-        return this.http.get<Coin>(this.uriCoin + coinShortName);
+    // Get cards from specific list with ID from database
+    getAllCardsFromListWithId(listId: string): Observable<[]> {
+        return this.http.get<[]>(this.urlLists + listId + '/cards' + this.trelloAuth);
     }
 
-    // Get vehicles by specific user
-    /*getCoinsByUser(belongsToUser: string): Observable<Coin[]> {
-      return this.http.get<Coin[]>(this.uriCoinsForUser + belongsToUser);
+    // Add new card to specific list with ID from database
+    addNewCardToListWithId(listId: string, cardName: string) {
+        return this.http.post(this.urlCards, '?idList=' + listId + '&name=' + cardName + this.trelloAuth, {headers: this.headers});
+    }
+
+    // Update list in board
+    /*updateListInBoard(
+        id: any,
+        vehicleType: any,
+        vehicleBrand: any,
+        vehicleName: any,
+        vehicleModelYear: number,
+        vehicleColor: any,
+        vehicleSeats: number,
+        vehicleMaxLuggage: number,
+        vehicleInsurance: boolean): Observable<[]> {
+        const vehicle = {
+            id: id,
+            vehicleType: vehicleType,
+            vehicleBrand: vehicleBrand,
+            vehicleName: vehicleName,
+            vehicleModelYear: vehicleModelYear,
+            vehicleColor: vehicleColor,
+            vehicleSeats: vehicleSeats,
+            vehicleMaxLuggage: vehicleMaxLuggage,
+            vehicleInsurance: vehicleInsurance
+        };
+        return this.http.patch<[]>(this.urlBaseLists + boardId + this.trelloAuth);
     }*/
 
+    /*
     // Add new vehicle to database
     /*addVehicle(
         belongsToUser: any,
@@ -66,31 +97,6 @@ export class TrelloService {
             vehicleInsurance: vehicleInsurance
         };
         return this.http.post(this.uriVehicleAdd, vehicle);
-    }*/
-
-    // Update vehicle from database
-    /*updateVehicle(
-        id: any,
-        vehicleType: any,
-        vehicleBrand: any,
-        vehicleName: any,
-        vehicleModelYear: number,
-        vehicleColor: any,
-        vehicleSeats: number,
-        vehicleMaxLuggage: number,
-        vehicleInsurance: boolean): Observable<Coin[]> {
-        const vehicle = {
-            id: id,
-            vehicleType: vehicleType,
-            vehicleBrand: vehicleBrand,
-            vehicleName: vehicleName,
-            vehicleModelYear: vehicleModelYear,
-            vehicleColor: vehicleColor,
-            vehicleSeats: vehicleSeats,
-            vehicleMaxLuggage: vehicleMaxLuggage,
-            vehicleInsurance: vehicleInsurance
-        };
-        return this.http.patch<Coin[]>(this.uriVehicleUpdate + id, vehicle);
     }*/
 
     // Delete vehicle from database
