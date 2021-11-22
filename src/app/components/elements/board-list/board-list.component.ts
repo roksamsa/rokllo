@@ -50,6 +50,14 @@ export class BoardListComponent implements OnInit {
             });
     }
 
+    deleteCard(cardId: string) {
+        this.trelloService.deleteCardWithId(cardId)
+            .pipe(filter(x => !!x))
+            .subscribe(() => {
+                this.fetchAllCardsFromThisList(this.boardListId);
+            });
+    }
+
     toggleAddNewCardArea() {
         this.isAddNewCardAreaVisible = !this.isAddNewCardAreaVisible;
     }

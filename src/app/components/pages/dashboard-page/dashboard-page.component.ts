@@ -3,9 +3,9 @@ import { filter } from 'rxjs/operators';
 import { TrelloService } from "../../../services/trello.service";
 
 @Component({
-  selector: 'app-dashboard-page',
-  templateUrl: './dashboard-page.component.html',
-  styleUrls: ['./dashboard-page.component.scss']
+    selector: 'app-dashboard-page',
+    templateUrl: './dashboard-page.component.html',
+    styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit {
     title = 'Rokllo';
@@ -13,7 +13,7 @@ export class DashboardPageComponent implements OnInit {
 
     constructor(
         private trelloService: TrelloService
-    ) {  }
+    ) { }
 
     ngOnInit() {
         this.fetchAllBoards();

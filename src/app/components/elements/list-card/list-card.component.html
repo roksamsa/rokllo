@@ -2,7 +2,12 @@
     <div class="list-card__status-bar">
     </div>
     <div class="list-card__name">
-        <ng-content></ng-content>
+        <div class="list-card__text">
+            <ng-content></ng-content>
+        </div>
+        <div class="list-card__actions" (click)="deleteCard()">
+            <span class="list-card__actions-icon material-icons">more_vert</span>
+        </div>
     </div>
     <div class="board-list__footer">
 

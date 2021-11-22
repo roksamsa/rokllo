@@ -10,7 +10,7 @@
     <div class="board-list__items">
         <div class="board-list__cards">
             <div class="board-list__card" cdkDropList (cdkDropListDropped)="drop($event)">
-                <app-list-card class="board-list__card-item" *ngFor="let card of cardsOnList" cdkDrag>
+                <app-list-card class="board-list__card-item" *ngFor="let card of cardsOnList" (clickActions)="deleteCard(card.id)" cdkDrag>
                     <div class="board-list__placeholder" *cdkDragPlaceholder></div>
                     {{card.name}}
                 </app-list-card>

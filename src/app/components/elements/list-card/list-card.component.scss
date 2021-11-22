@@ -15,6 +15,10 @@
   &:hover {
     background-color: rgb(246, 250, 255);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+
+    .list-card__actions {
+        opacity: 1;
+    }
   }
 
   &:last-child {
@@ -24,9 +28,22 @@
 
 .list-card {
   &__name {
+    display: flex;
     flex-grow: 1;
     font-size: 13px;
     font-weight: 600;
     color: #273e64;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+  }
+
+  &__text {
+    flex-grow: 1;
+    line-height: 1.6;
   }
 }

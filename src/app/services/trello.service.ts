@@ -10,11 +10,12 @@ export class TrelloService {
     trelloKey = "d3dd95bb2c59a7d97c006a96f3b72d8f";
     trelloToken = "be77b0c76709dd83671aaa163fae71b3653d8fda574996a520b810379d09524e";
     trelloAuth = "?key=" + this.trelloKey + "&token=" + this.trelloToken;
+
     urlTrello = 'https://api.trello.com/1/';
     urlProxy = 'http://localhost:8010/proxy/';
-    urlDefault = this.urlProxy;
-    urlBase = this.urlDefault + 'members/me';
-    urlBoards = this.urlBase + '/boards';
+    urlDefault = this.urlTrello;
+    urlCurrentUser = this.urlDefault + 'members/me';
+    urlBoards = this.urlCurrentUser + '/boards';
     urlBaseBoards = this.urlDefault + 'boards/';
     urlLists = this.urlDefault + 'lists/';
     urlCards = this.urlDefault + 'cards';
@@ -28,6 +29,16 @@ export class TrelloService {
     private headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
+
+    // Get all data for username
+    getUserData(): Observable<[]> {
+        return this.http.get<[]>(this.urlCurrentUser + this.trelloAuth);
+    }
+
+    // Get all data for username
+    getUserDataTest(): Observable<[]> {
+        return this.http.get<[]>('https://api.trello.com/1/tokens/token/member' + this.trelloAuth + '&fileds=all');
+    }
 
     // Get all boards from database
     getAllBoards(): Observable<[]> {
@@ -52,6 +63,11 @@ export class TrelloService {
     // Add new card to specific list with ID from database
     addNewCardToListWithId(listId: string, cardName: string) {
         return this.http.post(this.urlCards + this.trelloAuth + '&idList=' + listId + '&name=' + cardName + '&response_type=token', {headers: this.headers});
+    }
+
+    // Delete card with ID from database
+    deleteCardWithId(cardId: string) {
+        return this.http.delete(this.urlCards + '/' + cardId + this.trelloAuth + '&response_type=token', {headers: this.headers});
     }
 
     // Update list in board
