@@ -12,6 +12,11 @@
   text-decoration: none;
   z-index: 0;
 
+  &:hover {
+    background-color: rgb(246, 250, 255);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+
   &:last-child {
     margin-bottom: 0;
   }

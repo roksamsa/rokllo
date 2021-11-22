@@ -1,6 +1,18 @@
 @import "../../../sass/global_mixins";
 @import "../../../sass/global_variables";
 
+@keyframes star-grow-animation {
+    0% {
+      opacity: 0.75;
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(4);
+    }
+  }
+
 :host {
   flex-shrink: 0;
   width: 300px;
@@ -100,6 +112,12 @@
 
   &__cards {
     padding: 10px;
+  }
+
+  &__card-item {
+      &--added {
+        animation: star-grow-animation 600ms ease-in-out 1;
+      }
   }
 
   &__placeholder {

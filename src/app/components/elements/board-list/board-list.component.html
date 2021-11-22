@@ -10,7 +10,7 @@
     <div class="board-list__items">
         <div class="board-list__cards">
             <div class="board-list__card" cdkDropList (cdkDropListDropped)="drop($event)">
-                <app-list-card class="board-list__card" *ngFor="let card of cardsOnList" cdkDrag>
+                <app-list-card class="board-list__card-item" *ngFor="let card of cardsOnList" cdkDrag>
                     <div class="board-list__placeholder" *cdkDragPlaceholder></div>
                     {{card.name}}
                 </app-list-card>
@@ -21,10 +21,10 @@
     <div class="board-list__footer">
         <div class="board-list__add-new-input" *ngIf="isAddNewCardAreaVisible">
             <div class="board-list__add-new-textarea">
-                <textarea rows="4" cols="50"></textarea>
+                <textarea #textareaInput rows="4" cols="50"></textarea>
             </div>
             <div class="board-list__add-new-action">
-                <div class="board-list__add-new-button" (click)="addNewCardToList(boardListId, 'testroks27')">
+                <div class="board-list__add-new-button" (click)="addNewCardToList(boardListId, textareaInput.value)">
                     <span>Add card</span>
                 </div>
                 <div class="board-list__add-new-cancel" (click)="toggleAddNewCardArea()">

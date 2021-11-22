@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { TrelloService } from "../../../services/trello.service";
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FixedSizeVirtualScrollStrategy } from "@angular/cdk/scrolling";
 
 @Component({
     selector: 'app-board-list',
@@ -23,9 +22,10 @@ export class BoardListComponent implements OnInit {
     }
 
     // Fetch all cards on list
-    fetchAllCardsFromThisList(boardId: string) {
-        console.log(boardId)
-        this.trelloService.getAllCardsFromListWithId(boardId)
+    fetchAllCardsFromThisList(listId: string) {
+        console.log('listId');
+        console.log(listId);
+        this.trelloService.getAllCardsFromListWithId(listId)
             .pipe(filter(x => !!x))
             .subscribe(cards => {
                 if (cards) {
@@ -45,6 +45,8 @@ export class BoardListComponent implements OnInit {
             boardListId,
             cardName).subscribe(() => {
                 console.log('Card added');
+                this.isAddNewCardAreaVisible = false;
+                this.fetchAllCardsFromThisList(this.boardListId);
             });
     }
 
