@@ -44,7 +44,7 @@
   &.cdk-drag-preview {
     .board-list {
       animation: moving-list-on-drag 2000ms infinite ease-in-out;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
   }
 }
@@ -62,7 +62,7 @@
   box-sizing: border-box;
   overflow: hidden;
   max-height: 100%;
-  transition: box-shadow 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
 
   &__header {
     display: flex;

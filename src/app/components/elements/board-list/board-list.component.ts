@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { TrelloService } from "../../../services/trello.service";
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -10,11 +10,13 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class BoardListComponent implements OnInit {
     @Input() boardListTitle: string = "";
-    @Input() boardListId: string = "";
+    @Input() boardListId: string = ""
+    @ViewChild('textareaInput', {static: false}) textareaInput: ElementRef<HTMLInputElement> = {} as ElementRef;
     cardsOnList: any = [];
     isAddNewCardAreaVisible: boolean = false;
 
     constructor(
+        private cdRef:ChangeDetectorRef,
         private trelloService: TrelloService) { }
 
     ngOnInit(): void {
@@ -60,6 +62,8 @@ export class BoardListComponent implements OnInit {
 
     toggleAddNewCardArea() {
         this.isAddNewCardAreaVisible = !this.isAddNewCardAreaVisible;
+        this.cdRef.detectChanges();
+        this.textareaInput.nativeElement.focus();
     }
 
     drop(event: CdkDragDrop<string[]>) {
