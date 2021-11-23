@@ -2,16 +2,34 @@
 @import "../../../sass/global_variables";
 
 @keyframes star-grow-animation {
-    0% {
-      opacity: 0.75;
-      transform: scale(1);
-    }
-
-    100% {
-      opacity: 0;
-      transform: scale(4);
-    }
+  0% {
+    opacity: 0.75;
+    transform: scale(1);
   }
+
+  100% {
+    opacity: 0;
+    transform: scale(4);
+  }
+}
+
+@keyframes moving-list-on-drag {
+  0% {
+    transform: rotate(0);
+  }
+
+  30% {
+    transform: rotate(-2deg);
+  }
+
+  60% {
+    transform: rotate(2deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
 
 :host {
   flex-shrink: 0;
@@ -23,13 +41,10 @@
     margin-right: 0;
   }
 
-  &.over {
-    background-color: red;
-    opacity: 1;
-
+  &.cdk-drag-preview {
     .board-list {
-      background-color: red;
-      opacity: 1;
+      animation: moving-list-on-drag 2000ms infinite ease-in-out;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     }
   }
 }
@@ -47,6 +62,7 @@
   box-sizing: border-box;
   overflow: hidden;
   max-height: 100%;
+  transition: box-shadow 500ms ease-in-out;
 
   &__header {
     display: flex;
@@ -115,9 +131,9 @@
   }
 
   &__card-item {
-      &--added {
-        animation: star-grow-animation 600ms ease-in-out 1;
-      }
+    &--added {
+      animation: star-grow-animation 600ms ease-in-out 1;
+    }
   }
 
   &__placeholder {
