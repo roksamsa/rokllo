@@ -1,7 +1,13 @@
 <div class="board-list">
     <div class="board-list__header">
         <div class="board-list__title">
-            <ng-content select="[list-title]"></ng-content>
+            <div class="board-list__title-wrapper" *ngIf="!isEditTitleAreaVisible" (click)="toggleEditTitleArea()">
+                <ng-content select="[list-title]"></ng-content>
+            </div>
+            <div class="board-list__title-input" *ngIf="isEditTitleAreaVisible">
+                <input #editTitleInput value="{{boardListTitle}}" />
+                <span class="board-list__title-save material-icons" (click)="updateList(boardListId, '&name=' + editTitleInput.value)">done</span>
+            </div>
         </div>
         <div class="board-list__options">
             <span class="board-list__options-icon material-icons">more_vert</span>

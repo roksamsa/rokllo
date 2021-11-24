@@ -2,87 +2,108 @@
 @import "../../../sass/global_variables";
 
 :host {
-  display: block;
-  height: 100%;
+    display: block;
+    height: 100%;
 }
 
 .board-page {
-  display: flex;
-  height: 100%;
-
-  &__image {
-    position: fixed;
-    inset: 0;
-    background-position: center;
-    background-size: cover;
-    box-sizing: border-box;
-  }
-
-  &__content {
     display: flex;
     height: 100%;
-    padding: 15px 15px 30px;
-    box-sizing: border-box;
-  }
 
-  &__list {
-    display: flex;
-  }
+    @include add-new-segment;
 
-  &__list-title {
-    padding: 10px;
-  }
-
-  &__list-item {
-    &.cdk-drag-preview {
-      transform: rotate(20deg);
+    &__image {
+        position: fixed;
+        inset: 0;
+        background-position: center;
+        background-size: cover;
+        box-sizing: border-box;
     }
-  }
 
-  &__add-new {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 300px;
-    height: 38px;
-    margin-left: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.3);
-    background-position: center;
-    background-size: cover;
-    box-sizing: border-box;
-    overflow: hidden;
-    cursor: pointer;
-    color: #ffffff;
-    font-weight: 600;
-    transition: background-color 150ms ease-in-out;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.6);
-      color: $color__blue--darker;
+    &__content {
+        display: flex;
+        height: 100%;
+        padding: 15px 15px 30px;
+        box-sizing: border-box;
     }
-  }
 
-  &__add-new-text {
-    @include text-truncate;
-    flex-grow: 1;
-    font-size: 14px;
-  }
+    &__list {
+        display: flex;
+    }
 
-  &__add-new-icon {
-    margin-right: 5px;
-    font-size: 20px;
-  }
+    &__list-title {
+        width: 100%;
+        padding: 10px;
+    }
 
-  &__list-placeholder {
-    width: 300px;
-    margin-right: 15px;
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
+    &__list-item {
+        &.cdk-drag-preview {
+            transform: rotate(20deg);
+        }
+    }
+
+    &__add-new {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 300px;
+        height: 38px;
+        margin-left: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 10%);
+        background-color: rgb(255 255 255 / 30%);
+        background-position: center;
+        background-size: cover;
+        box-sizing: border-box;
+        overflow: hidden;
+        cursor: pointer;
+        color: #fff;
+        font-weight: 600;
+        transition: background-color 150ms ease-in-out;
+
+        &:hover {
+            background-color: rgb(255 255 255 / 80%);
+            color: $color__blue--darker;
+        }
+    }
+
+    &__ad-new-action {
+        position: relative;
+    }
+
+    &__add-new-text {
+        @include text-truncate;
+
+        flex-grow: 1;
+        font-size: 14px;
+        color: #fff;
+    }
+
+    &__add-new-icon {
+        margin-right: 5px;
+        font-size: 20px;
+        color: #fff;
+    }
+
+    &__add-new-input {
+        width: 300px;
+        margin: 0 15px 15px;
+    }
+
+    &__add-new-cancel {
+        span {
+            color: #fff;
+        }
+    }
+
+    &__list-placeholder {
+        width: 300px;
+        margin-right: 15px;
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
 }
 
 .cdk-drop-list-dragging .board-page__list-item:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

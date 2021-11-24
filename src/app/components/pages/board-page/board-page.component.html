@@ -2,14 +2,27 @@
     <div class="board-page__image" [style.background-color]="boardData.prefs.backgroundColor" [style.background-image]="'url(' + boardData.prefs.backgroundImage + ')'"></div>
     <div class="board-page__content">
         <div class="board-page__list" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-            <app-board-list class="board-page__list-item" *ngFor="let list of listsInBoard" boardListId="{{list.id}}" cdkDrag>
+            <app-board-list class="board-page__list-item" *ngFor="let list of listsInBoard" boardListId="{{list.id}}" boardListTitle="{{list.name}}" cdkDrag>
                 <div class="board-page__list-title" list-title cdkDragHandle>{{list.name}}</div>
                 <div class="board-page__list-placeholder" *cdkDragPlaceholder></div>
             </app-board-list>
         </div>
-        <div class="board-page__add-new">
+        <div class="board-page__add-new" (click)="toggleAddNewListArea()" *ngIf="!isAddNewListAreaVisible">
             <span class="board-page__add-new-icon material-icons">add</span>
             <span class="board-page__add-new-text">Add another list</span>
+        </div>
+        <div class="board-page__add-new-input" *ngIf="isAddNewListAreaVisible">
+            <div class="board-page__add-new-textarea">
+                <textarea #textareaInput rows="4" cols="50"></textarea>
+            </div>
+            <div class="board-page__add-new-action">
+                <div class="board-page__add-new-button" (click)="addNewList(textareaInput.value, thisBoardId, 'bottom')">
+                    <span>Add new list</span>
+                </div>
+                <div class="board-page__add-new-cancel" (click)="toggleAddNewListArea()">
+                    <span class="board-page__options-icon material-icons">close</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

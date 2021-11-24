@@ -1,3 +1,12 @@
 <header class="header">
-    Test
+    <div class="header__logo" [routerLink]="['/dashboard']">
+        <div class="header__logo-icon">
+            <span class="header__logo-item header__logo-item--visible material-icons">view_week</span>
+            <span class="header__logo-item header__logo-item--hidden material-icons">view_week</span>
+        </div>
+        <div class="header__logo-text">Rokllo</div>
+    </div>
+    <div class="header__breadcrumbs" *ngIf="router.url !== '/dashboard'">
+        <span>{{currentBoardData.name}}</span>
+    </div>
 </header>

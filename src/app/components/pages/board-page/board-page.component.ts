@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { TrelloService } from "../../../services/trello.service";
+import { GlobalService } from '../../../services/global.service';
 import { ActivatedRoute } from '@angular/router';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-board-page',
@@ -12,56 +13,84 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class BoardPageComponent implements OnInit {
     boardData: any = [];
     listsInBoard: any = [];
+    thisBoardId: string = "";
     boardBackgroundImage: string = "";
+    isAddNewListAreaVisible: boolean = false;
+    @ViewChild('textareaInput', { static: false }) textareaInput: ElementRef<HTMLInputElement> = {} as ElementRef;
 
     constructor(
+        private cdRef: ChangeDetectorRef,
         private route: ActivatedRoute,
-        private trelloService: TrelloService
+        private trelloService: TrelloService,
+        private globalService: GlobalService
     ) { }
 
     ngOnInit() {
         this.getBoardData();
     }
 
-    arrayMove(array: any, fromIndex: number, toIndex: number) {
-        var element = array[fromIndex];
-        array.splice(fromIndex, 1);
-        array.splice(toIndex, 0, element);
+    toggleAddNewListArea() {
+        this.isAddNewListAreaVisible = !this.isAddNewListAreaVisible;
+        this.cdRef.detectChanges();
+        this.textareaInput.nativeElement.focus();
+    }
+
+    addNewList(
+        listName: string,
+        boardListId: string,
+        position: any): void {
+        this.trelloService.addNewListToBoardWithId(
+            listName,
+            boardListId,
+            position).subscribe(() => {
+                console.log('List added');
+                this.isAddNewListAreaVisible = false;
+                this.fetchAllListsFromThisBoard(this.thisBoardId);
+            });
+    }
+
+    updateList(
+        boardListId: string,
+        params: any): void {
+        this.trelloService.updateListWithId(
+            boardListId,
+            params).subscribe(board => {
+                console.log(board);
+                this.fetchAllListsFromThisBoard(this.thisBoardId);
+            });
     }
 
     getBoardData(): void {
-        const id = this.route.snapshot.paramMap.get('id');
-        console.log(id)
+        this.thisBoardId = this.route.snapshot.paramMap.get('id') || "";
 
-        if (id !== null) {
-            this.fetchBoardIdData(id);
-            this.fetchAllListsFromThisBoard(id);
+        if (this.thisBoardId !== null) {
+            this.fetchBoardIdData(this.thisBoardId);
+            this.fetchAllListsFromThisBoard(this.thisBoardId);
         }
     }
 
-    // Fetch all user boards
+    // Fetch board
     fetchBoardIdData(boardId: string) {
         this.trelloService.getBoardWithId(boardId)
             .pipe(filter(x => !!x))
             .subscribe(board => {
                 if (board) {
                     this.boardData = board;
-                    console.log(this.boardData);
+                    this.globalService.updateBoardData(this.boardData);
                 } else {
                     this.boardData = [];
                 }
             });
     }
 
-    // Fetch all user boards
+    // Fetch all user list in this board
     fetchAllListsFromThisBoard(boardId: string) {
-        console.log(boardId)
         this.trelloService.getAllListsFromBoardWithId(boardId)
             .pipe(filter(x => !!x))
             .subscribe(boards => {
                 if (boards) {
                     this.listsInBoard = boards;
-                    console.log(this.listsInBoard);
+                    console.log(boards);
                 } else {
                     this.listsInBoard = [];
                 }
@@ -69,9 +98,33 @@ export class BoardPageComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<string[]>) {
-        console.log(event);
-        console.log(this.listsInBoard);
-        //this.arrayMove(this.listsInBoard, event.previousIndex, event.currentIndex);
-        moveItemInArray(this.listsInBoard, event.previousIndex, event.currentIndex);
+        this.globalService.arrayMove(this.listsInBoard, event.previousIndex, event.currentIndex);
+        /*let dropPlace = this.listsInBoard[event.currentIndex].pos;
+        let whichListMovingId = this.listsInBoard[event.currentIndex].id;
+
+        if (event.previousIndex < event.currentIndex) { // Right move
+            console.log(this.listsInBoard[event.currentIndex - 1].pos);
+            console.log(this.listsInBoard[event.currentIndex].pos);
+            console.log(this.listsInBoard[event.currentIndex + 1].pos);
+            this.updateList(whichListMovingId, '&pos=' + (dropPlace + 5));
+        }*/
     }
+        /*for (let i = 0; i < this.listsInBoard.length; i++) {
+            if (i === event.previousIndex) {
+                if (event.previousIndex < event.currentIndex) { // Right move
+                    //console.log(this.listsInBoard[event.previousIndex].name);
+                    console.log(this.listsInBoard[event.currentIndex].name);
+                    console.log(this.listsInBoard[event.currentIndex].id);
+                    console.log(this.listsInBoard[event.currentIndex + 1].name);
+                    console.log(this.listsInBoard[event.currentIndex + 1].id);
+                    this.updateList(this.listsInBoard[event.currentIndex].id, '&pos=' + ((this.listsInBoard[event.previousIndex].pos) + 1));
+                } else {
+                    console.log(this.listsInBoard[event.previousIndex].pos);
+                    this.updateList(this.listsInBoard[event.previousIndex].id, '&pos=' + (this.listsInBoard[event.currentIndex].pos - 5));
+                }
+            }
+            if (i === event.previousIndex) {
+                this.updateList(this.listsInBoard[event.previousIndex].id, '&pos=' + event.currentIndex);
+                this.fetchAllListsFromThisBoard(this.thisBoardId);
+            }*/
 }

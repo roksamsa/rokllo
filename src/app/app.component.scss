@@ -1,5 +1,5 @@
-
 @import "sass/global_variables";
+
 :host,
 .rokllo {
     display: block;
@@ -12,7 +12,7 @@
     flex-direction: column-reverse;
     background-color: #e3e3e3;
 
-    /*&__background {
+    /* &__background {
         position: absolute;
         inset: 0;
         background: #FC5C7D;
@@ -20,12 +20,14 @@
         background: linear-gradient(to right, #6A82FB, #FC5C7D);
         opacity: 0.1;
         filter: blur(50px);
-    }*/
+    } */
 
     &__wrapper {
         display: block;
         position: relative;
         width: 100%;
         height: 100%;
+        padding-top: 50px;
+        box-sizing: border-box;
     }
 }

@@ -23,6 +23,8 @@ export class TrelloService {
     // http://localhost:8010/proxy/cards?key=d3dd95bb2c59a7d97c006a96f3b72d8f&token=be77b0c76709dd83671aaa163fae71b3653d8fda574996a520b810379d09524e&idList=6196959f85856424175905ad&name=Roks4272&response_type=token
     // https://trello.com/1/authorize?key=YOUR_APP_KEY&name=APP_NAME&scope=read,write&expiration=never&response_type=token
 
+    // 'https://api.trello.com/1/lists?name={name}&idBoard=5abbe4b7ddc1b351ef961414'
+
     constructor(
         private http: HttpClient) { }
 
@@ -35,37 +37,42 @@ export class TrelloService {
         return this.http.get<[]>(this.urlCurrentUser + this.trelloAuth);
     }
 
-    // Get all data for username
-    getUserDataTest(): Observable<[]> {
-        return this.http.get<[]>('https://api.trello.com/1/tokens/token/member' + this.trelloAuth + '&fileds=all');
-    }
-
-    // Get all boards from database
+    // BOARD - Get all boards from database
     getAllBoards(): Observable<[]> {
         return this.http.get<[]>(this.urlBoards + this.trelloAuth);
     }
 
-    // Get specific board with ID from database
+    // BOARD - Get specific board with ID from database
     getBoardWithId(boardId: string): Observable<[]> {
         return this.http.get<[]>(this.urlBaseBoards + boardId + this.trelloAuth);
     }
 
-    // Get lists from specific board with ID from database
+    // LIST - Get lists from specific board with ID from database
     getAllListsFromBoardWithId(boardId: string): Observable<[]> {
         return this.http.get<[]>(this.urlBaseBoards + boardId + '/lists' + this.trelloAuth);
     }
 
-    // Get cards from specific list with ID from database
+    // LIST - Add new list to specific board with ID to database
+    addNewListToBoardWithId(name: string, idBoard: string, position: any) {
+        return this.http.post(this.urlLists + this.trelloAuth + '&name=' + name + '&idBoard=' + idBoard + '&pos=' + position + '&response_type=token', {headers: this.headers});
+    }
+
+    // LIST - Update list with ID to database
+    updateListWithId(listId: string, params: any) {
+        return this.http.put(this.urlLists + listId + this.trelloAuth + params, {headers: this.headers});
+    }
+
+    // CARD - Get cards from specific list with ID from database
     getAllCardsFromListWithId(listId: string): Observable<[]> {
         return this.http.get<[]>(this.urlLists + listId + '/cards' + this.trelloAuth);
     }
 
-    // Add new card to specific list with ID from database
+    // CARD - Add new card to specific list with ID to database
     addNewCardToListWithId(listId: string, cardName: string) {
         return this.http.post(this.urlCards + this.trelloAuth + '&idList=' + listId + '&name=' + cardName + '&response_type=token', {headers: this.headers});
     }
 
-    // Delete card with ID from database
+    // CARD - Delete card with ID from database
     deleteCardWithId(cardId: string) {
         return this.http.delete(this.urlCards + '/' + cardId + this.trelloAuth + '&response_type=token', {headers: this.headers});
     }

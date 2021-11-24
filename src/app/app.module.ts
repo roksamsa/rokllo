@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { TrelloService } from './services/trello.service';
+import { GlobalService } from './services/global.service';
 import { BoardTileComponent } from './components/elements/board-tile/board-tile.component';
 import { BoardListComponent } from './components/elements/board-list/board-list.component';
 import { DashboardPageComponent } from './components/pages/dashboard-page/dashboard-page.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
     ],
     providers: [
         TrelloService,
+        GlobalService,
     ],
     bootstrap: [AppComponent]
 })

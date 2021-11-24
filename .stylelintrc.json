@@ -1,0 +1,11 @@
+{
+    "extends": [
+        "stylelint-config-standard-scss"
+    ],
+    "rules": {
+        "color-no-invalid-hex": true,
+        "string-quotes": "double",
+        "font-family-name-quotes": "always-unless-keyword",
+        "indentation": 4
+    }
+}

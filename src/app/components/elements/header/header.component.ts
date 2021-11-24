@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { filter } from 'rxjs/operators';
 import { TrelloService } from "../../../services/trello.service";
+import { GlobalService } from "../../../services/global.service";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -8,19 +9,24 @@ import { TrelloService } from "../../../services/trello.service";
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+    currentBoardData: any = {};
 
     constructor(
-        private trelloService: TrelloService
+        private trelloService: TrelloService,
+        private globalService: GlobalService,
+        public router: Router
     ) { }
 
     ngOnInit(): void {
         this.getUserData;
-    }
-
-    getUserData(): void {
-        this.trelloService.getUserDataTest().subscribe(userData => {
-            console.log(userData);
+        this.globalService.boardData.subscribe(data => {
+            this.currentBoardData = data
         });
     }
 
+    getUserData(): void {
+        this.trelloService.getUserData().subscribe(userData => {
+            //console.log(userData);
+        });
+    }
 }

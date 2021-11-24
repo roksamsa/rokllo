@@ -25,7 +25,6 @@ export class DashboardPageComponent implements OnInit {
             .pipe(filter(x => !!x))
             .subscribe(boards => {
                 if (boards) {
-                    console.log(boards);
                     this.myBoards = boards;
                 } else {
                     this.myBoards = [];

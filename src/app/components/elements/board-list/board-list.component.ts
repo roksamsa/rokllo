@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { TrelloService } from "../../../services/trello.service";
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { GlobalService } from '../../../services/global.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-board-list',
@@ -12,31 +13,43 @@ export class BoardListComponent implements OnInit {
     @Input() boardListTitle: string = "";
     @Input() boardListId: string = ""
     @ViewChild('textareaInput', {static: false}) textareaInput: ElementRef<HTMLInputElement> = {} as ElementRef;
+    @ViewChild('editTitleInput', {static: false}) editTitleInput: ElementRef<HTMLInputElement> = {} as ElementRef;
     cardsOnList: any = [];
     isAddNewCardAreaVisible: boolean = false;
+    isEditTitleAreaVisible: boolean = false;
 
     constructor(
         private cdRef:ChangeDetectorRef,
-        private trelloService: TrelloService) { }
+        private trelloService: TrelloService,
+        private globalService: GlobalService) { }
 
     ngOnInit(): void {
         this.fetchAllCardsFromThisList(this.boardListId);
+        /*this.globalService.boardData.subscribe(data => {
+            console.log(data);
+        });*/
     }
 
     // Fetch all cards on list
     fetchAllCardsFromThisList(listId: string) {
-        console.log('listId');
-        console.log(listId);
         this.trelloService.getAllCardsFromListWithId(listId)
             .pipe(filter(x => !!x))
             .subscribe(cards => {
                 if (cards) {
                     this.cardsOnList = cards;
-                    console.log(this.cardsOnList);
-                    console.log(this.cardsOnList.item.element.nativeElement);
                 } else {
                     this.cardsOnList = [];
                 }
+            });
+    }
+
+    updateList(
+        boardListId: string,
+        params: any): void {
+        this.trelloService.updateListWithId(
+            boardListId,
+            params).subscribe(board => {
+                this.isEditTitleAreaVisible = false;
             });
     }
 
@@ -66,8 +79,13 @@ export class BoardListComponent implements OnInit {
         this.textareaInput.nativeElement.focus();
     }
 
+    toggleEditTitleArea() {
+        this.isEditTitleAreaVisible = !this.isEditTitleAreaVisible;
+        this.cdRef.detectChanges();
+        this.editTitleInput.nativeElement.focus();
+    }
+
     drop(event: CdkDragDrop<string[]>) {
-        console.log(event.item.element.nativeElement.offsetHeight);
-        moveItemInArray(this.cardsOnList, event.previousIndex, event.currentIndex);
+        this.globalService.arrayMove(this.cardsOnList, event.previousIndex, event.currentIndex);
     }
 }
